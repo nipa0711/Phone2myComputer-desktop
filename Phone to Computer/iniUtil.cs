@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
-namespace 안드로이드_자동_데이터_백업
+namespace Phone_to_Computer
 {
     class iniUtil
     {

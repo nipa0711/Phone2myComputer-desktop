@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 
-namespace 안드로이드_자동_데이터_백업
+namespace Phone_to_Computer
 {
     /// <summary>
     /// MainWindow.xaml에 대한 상호 작용 논리
@@ -149,17 +149,20 @@ namespace 안드로이드_자동_데이터_백업
             try
             {
                 var menu = new System.Windows.Forms.ContextMenu();
-                var item1 = new System.Windows.Forms.MenuItem();
+                var menu_program_end = new System.Windows.Forms.MenuItem();
 
-                menu.MenuItems.Add(item1);
+                // 트레이 아이콘 우클릭 메뉴
+                menu.MenuItems.Add(menu_program_end);
 
-                item1.Index = 0;
-                item1.Text = "프로그램 종료";
-                item1.Click += delegate (object click, EventArgs eClick)
+                menu_program_end.Index = 0;
+                menu_program_end.Text = "프로그램 종료";
+                menu_program_end.Click += delegate (object click, EventArgs eClick)
                 {
                     this.Close();
+                    Process.GetCurrentProcess().Kill();
                 };
 
+                // 창 복구
                 notify = new System.Windows.Forms.NotifyIcon();
                 notify.Icon = Properties.Resources.Icon1;
                 notify.Visible = true;
@@ -180,6 +183,8 @@ namespace 안드로이드_자동_데이터_백업
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             saveSetting();
+            e.Cancel = true;
+            this.Visibility = Visibility.Hidden;
         }
 
         private void eraseLogBtn_Click(object sender, RoutedEventArgs e)

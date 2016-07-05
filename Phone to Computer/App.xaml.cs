@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace 안드로이드_자동_데이터_백업
+namespace Phone_to_Computer
 {
     /// <summary>
     /// App.xaml에 대한 상호 작용 논리

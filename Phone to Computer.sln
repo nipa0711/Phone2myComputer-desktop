@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "안드로이드 자동 데이터 백업", "안드로이드 자동 데이터 백업\안드로이드 자동 데이터 백업.csproj", "{7CD9709B-625D-4D01-8BFF-9AFB8C9DBF77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phone to Computer", "Phone to Computer\Phone to Computer.csproj", "{7CD9709B-625D-4D01-8BFF-9AFB8C9DBF77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

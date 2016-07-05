@@ -1,9 +1,9 @@
-﻿<Window x:Class="안드로이드_자동_데이터_백업.MainWindow"
+﻿<Window x:Class="Phone_to_Computer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:안드로이드_자동_데이터_백업"
+        xmlns:local="clr-namespace:Phone_to_Computer"
         mc:Ignorable="d"
         Title="Phone to Computer" Height="513.724" Width="296.568" Initialized="Window_Initialized" Loaded="Window_Loaded" Closing="Window_Closing">
     <Grid>
