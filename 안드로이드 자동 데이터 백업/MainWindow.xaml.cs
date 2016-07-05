@@ -55,6 +55,7 @@ namespace 안드로이드_자동_데이터_백업
             String curSaveLoc = AppDomain.CurrentDomain.BaseDirectory;
             setFolderPath(curSaveLoc);
 
+            // 서버 시작.
             Thread th_server;
             th_server = new Thread(startServer);
             th_server.Start();
@@ -234,31 +235,49 @@ namespace 안드로이드_자동_데이터_백업
                     buffer = new byte[1500]; // 버퍼 크기 새로 지정
                     
                     String curSaveLoc = getFolderPath();
-                    curSaveLoc = curSaveLoc + @"\download";
+                    curSaveLoc = curSaveLoc + @"\Phone2Computer";
                     DirectoryInfo di = new DirectoryInfo(curSaveLoc);
 
                     if (di.Exists == false)
                     {
-                        di.Create(); // download 폴더 생성
+                        di.Create(); // Phone2Computer 폴더 생성
                     }
-
-                    int curSize = 0;// 현재까지 받은 파일 크기
-
-                    fileStream = new FileStream(curSaveLoc + "/" + fileName, FileMode.Create);
-
-                    //파일 수신
-                    while (curSize < fileSize)
+                    
+                    string filePath = curSaveLoc + "/" + fileName;
+                    
+                    FileInfo fi = new FileInfo(filePath);
+                    if(fi.Exists) // 파일 존재
                     {
-                        int receiveLength = clientSock.Receive(buffer);
-                        fileStream.Write(buffer, 0, receiveLength);                        
-                        curSize += receiveLength;
+                        UpdateLogBox(fileName+" 해당 파일이 이미 존재하기에 전송이 취소되었습니다.");
                     }
+                    else // 파일이 없으면
+                    {
+                        int curSize = 0;// 현재까지 받은 파일 크기
 
-                    fileStream.Close();
-                    clientSock.Close();
+                        fileStream = new FileStream(filePath, FileMode.Create);
 
-                    UpdateLogBox(fileName + "이 전송되었습니다.");
-                    UpdateLogBox("수신파일 크기 : " + fileSize);
+                        //파일 수신
+                        while (curSize < fileSize)
+                        {
+                            int receiveLength = clientSock.Receive(buffer);
+                            fileStream.Write(buffer, 0, receiveLength);
+                            curSize += receiveLength;
+                        }
+
+                        fileStream.Close();
+
+                        if(curSize!=fileSize)
+                        {
+                            UpdateLogBox("\n파일 전송에 문제가 생겼습니다.\n네트워크 환경을 체크해주세요");
+                        }
+                        else
+                        {
+                            UpdateLogBox(fileName + "이 전송되었습니다.");
+                            UpdateLogBox("수신파일 크기 : " + fileSize+"bytes");
+                        }                        
+                    }
+                    
+                    clientSock.Close();                    
                 }
                 catch (Exception ex)
                 {

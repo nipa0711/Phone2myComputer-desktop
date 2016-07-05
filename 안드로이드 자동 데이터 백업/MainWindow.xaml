@@ -20,7 +20,7 @@
         <Label x:Name="myLocalIP" Content="Label" HorizontalAlignment="Left" Margin="116,0,0,0" VerticalAlignment="Top" Width="145" Grid.Row="1" FontSize="16"/>
         <CheckBox x:Name="autoStart" Content="윈도우 시작시 자동실행" HorizontalAlignment="Left" Margin="19,10,0,0" VerticalAlignment="Top" FontSize="16" Checked="autoStart_Checked" Unchecked="autoStart_Unchecked"/>
         <Label x:Name="label5" Content="로그" HorizontalAlignment="Left" Margin="19,191,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.081,0.076" FontSize="16"/>
-        <TextBox x:Name="logBox" HorizontalAlignment="Left" Height="194" Margin="19,227,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" FontSize="16"/>
+        <TextBox x:Name="logBox" HorizontalAlignment="Left" Height="194" Margin="19,227,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="242" FontSize="16" VerticalScrollBarVisibility ="Visible"/>
         <Button x:Name="eraseLogBtn" Content="로그삭제" HorizontalAlignment="Left" Margin="181,197,0,0" Grid.Row="1" VerticalAlignment="Top" Width="80" Click="eraseLogBtn_Click" FontSize="16"/>
         <Button x:Name="btnOpenFolder" Content="폴더열기" HorizontalAlignment="Left" Margin="181,150,0,0" Grid.Row="1" VerticalAlignment="Top" Width="80" FontSize="16" Click="btnOpenFolder_Click"/>
 
