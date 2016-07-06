@@ -204,7 +204,7 @@ namespace Phone_to_Computer
             sock.Bind(localAddress);
 
             FileStream fileStream = null;
-            string currentIP=null;
+            string currentIP = null;
 
             UpdateLogBox("파일 업로드 서버 시작... ");
 
@@ -220,7 +220,7 @@ namespace Phone_to_Computer
                     string connectedIP = (clientSock.RemoteEndPoint).ToString();
 
                     if (connectedIP.Equals(currentIP))
-                    {                        
+                    {
                         UpdateLogBox("클라이언트 접속 : " + connectedIP);
                         currentIP = connectedIP;
                     }
@@ -231,14 +231,21 @@ namespace Phone_to_Computer
                     clientSock.Receive(buffer);
                     int fileSize = BitConverter.ToInt32(buffer, 0);
 
+                    clientSock.Receive(buffer);
+                    int folderNameLen = BitConverter.ToInt32(buffer, 0);
+
                     byte[] clientData = new byte[fileSize];
 
                     buffer = new byte[fileNameLen]; // 버퍼 크기 새로 지정
                     clientSock.Receive(buffer);
                     string fileName = Encoding.UTF8.GetString(buffer, 0, fileNameLen);
-                    
+
+                    buffer = new byte[folderNameLen]; // 버퍼 크기 새로 지정
+                    clientSock.Receive(buffer);
+                    string folderName = Encoding.UTF8.GetString(buffer, 0, folderNameLen);
+
                     buffer = new byte[1500]; // 버퍼 크기 새로 지정
-                    
+
                     String curSaveLoc = getFolderPath();
                     curSaveLoc = curSaveLoc + @"\Phone2Computer";
                     DirectoryInfo di = new DirectoryInfo(curSaveLoc);
@@ -247,13 +254,20 @@ namespace Phone_to_Computer
                     {
                         di.Create(); // Phone2Computer 폴더 생성
                     }
-                    
-                    string filePath = curSaveLoc + "/" + fileName;
-                    
-                    FileInfo fi = new FileInfo(filePath);
-                    if(fi.Exists) // 파일 존재
+
+                    di = new DirectoryInfo(curSaveLoc + "/" + folderName);
+
+                    if (di.Exists == false)
                     {
-                        UpdateLogBox(fileName+" 해당 파일이 이미 존재하기에 전송이 취소되었습니다.");
+                        di.Create(); // 해당 폴더 생성
+                    }
+
+                    string filePath = curSaveLoc + "/" + folderName + "/" + fileName;
+
+                    FileInfo fi = new FileInfo(filePath);
+                    if (fi.Exists) // 파일 존재
+                    {
+                        UpdateLogBox(fileName + " 해당 파일이 이미 존재하기에 전송이 취소되었습니다.");
                     }
                     else // 파일이 없으면
                     {
@@ -271,18 +285,18 @@ namespace Phone_to_Computer
 
                         fileStream.Close();
 
-                        if(curSize!=fileSize)
+                        if (curSize != fileSize)
                         {
                             UpdateLogBox("\n파일 전송에 문제가 생겼습니다.\n네트워크 환경을 체크해주세요");
                         }
                         else
                         {
                             UpdateLogBox(fileName + "이 전송되었습니다.");
-                            UpdateLogBox("수신파일 크기 : " + fileSize+"bytes");
-                        }                        
+                            UpdateLogBox("파일 크기 : " + fileSize + "bytes");
+                        }
                     }
-                    
-                    clientSock.Close();                    
+
+                    clientSock.Close();
                 }
                 catch (Exception ex)
                 {
