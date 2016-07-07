@@ -234,8 +234,6 @@ namespace Phone_to_Computer
                     clientSock.Receive(buffer);
                     int folderNameLen = BitConverter.ToInt32(buffer, 0);
 
-                    byte[] clientData = new byte[fileSize];
-
                     buffer = new byte[fileNameLen]; // 버퍼 크기 새로 지정
                     clientSock.Receive(buffer);
                     string fileName = Encoding.UTF8.GetString(buffer, 0, fileNameLen);
@@ -244,7 +242,7 @@ namespace Phone_to_Computer
                     clientSock.Receive(buffer);
                     string folderName = Encoding.UTF8.GetString(buffer, 0, folderNameLen);
 
-                    buffer = new byte[1500]; // 버퍼 크기 새로 지정
+                    buffer = new byte[4096]; // 버퍼 크기 새로 지정
 
                     String curSaveLoc = getFolderPath();
                     curSaveLoc = curSaveLoc + @"\Phone2Computer";
