@@ -267,7 +267,7 @@ namespace Phone_to_Computer
                     FileInfo fi = new FileInfo(filePath);
                     if (fi.Exists) // 파일 존재
                     {
-                        UpdateLogBox(fileName + " 해당 파일이 이미 존재하기에 전송이 취소되었습니다.");
+                        UpdateLogBox(fileName + " 해당 파일이 이미 존재하기에 전송이 취소되었습니다.\n");
                     }
                     else // 파일이 없으면
                     {
@@ -292,7 +292,7 @@ namespace Phone_to_Computer
                         else
                         {
                             UpdateLogBox(fileName + "이 전송되었습니다.");
-                            UpdateLogBox("파일 크기 : " + fileSize + "bytes");
+                            UpdateLogBox("파일 크기 : " + fileSize + "bytes\n");
                         }
                     }
 
